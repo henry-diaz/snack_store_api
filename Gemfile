@@ -43,3 +43,11 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+# Custom gems are included below this line
+
+# We use devise as our authenticate solution, and for the API, we're gonna
+# use a token-based authentication
+# GIT: https://github.com/lynndylanhurley/devise_token_auth
+gem 'devise_token_auth', '~> 0.2.0'
