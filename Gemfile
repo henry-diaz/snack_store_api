@@ -46,8 +46,16 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 # Custom gems are included below this line
+# ==============================================================================
 
 # We use devise as our authenticate solution, and for the API, we're gonna
 # use a token-based authentication
 # GIT: https://github.com/lynndylanhurley/devise_token_auth
 gem 'devise_token_auth', '~> 0.2.0'
+
+# Amazon S3 support to active storage files system
+gem 'aws-sdk-s3', require: false
+
+# Active Storage perform an image analysis in the attachments and require this gem
+# Basically we can get width and height of the image automatically
+gem 'mini_magick', '~> 4.8.0'

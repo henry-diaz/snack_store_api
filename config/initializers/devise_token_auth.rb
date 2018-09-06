@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+Devise.setup do |config|
+  config.secret_key = '53f4efd0b2b40494a7c9d71e39496b38b2f543013442a4042fc0fe38a504876ae8e26ac7b63e63e883bf41a494fe01077ebf87075e4c778506594c0ff2e32942'
+  # Normally this token is set in the credentials file but, to facilite the local
+  # share of the project, I set it here
+end
+
 DeviseTokenAuth.setup do |config|
   # By default the authorization headers will change after each request. The
   # client is responsible for keeping track of the changing tokens. Change
