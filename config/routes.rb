@@ -6,6 +6,11 @@ Rails.application.routes.draw do
       }
       # Purchases controller for users namespace
       resources :purchases, only: [:create]
+      resources :products, only: [:index] do
+        member do
+          get :like
+        end
+      end
     end
   end
   namespace :admins do
