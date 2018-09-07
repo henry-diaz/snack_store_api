@@ -64,3 +64,11 @@ gem 'mini_magick', '~> 4.8.0'
 # these changes, comments and associated models related. We're gonna use it to
 # log changes of products stock and prices.
 gem 'audited', '~> 4.7'
+
+# pg_search build scopes that take advantage of PostgreSQL full text search.
+# Our search in this project is basic, but when you add unnacent, trigram indexes,
+# etc, you get a powerful set of tools that take the juice out of your database
+gem 'pg_search'
+
+# Pagination library to use with our list of products
+gem 'will_paginate', '~> 3.1.0'
