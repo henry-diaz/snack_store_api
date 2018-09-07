@@ -59,3 +59,8 @@ gem 'aws-sdk-s3', require: false
 # Active Storage perform an image analysis in the attachments and require this gem
 # Basically we can get width and height of the image automatically
 gem 'mini_magick', '~> 4.8.0'
+
+# Audited is an ORM that logs all changes made to the models, it can save who did
+# these changes, comments and associated models related. We're gonna use it to
+# log changes of products stock and prices.
+gem 'audited', '~> 4.7'

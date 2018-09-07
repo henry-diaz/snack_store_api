@@ -16,6 +16,10 @@ class Product < ApplicationRecord
   validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :price, numericality: { greater_than: 0 }
 
+  # We are going to audit this model, and only the changes on the attributes
+  # stock and price
+  audited only: [:stock, :price]
+
   def image_url
     Rails.application.routes.url_helpers.rails_blob_url(image)
   end
