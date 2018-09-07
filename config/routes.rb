@@ -4,6 +4,8 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'users/v1/auth/registrations'
       }
+      # Purchases controller for users namespace
+      resources :purchases, only: [:create]
     end
   end
   namespace :admins do
