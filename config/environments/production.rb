@@ -83,7 +83,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # TODO Change to final production domain later
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+  config.action_mailer.default_url_options = { host: 'https://snack-store-api.herokuapp.com' }
+  Rails.application.routes.default_url_options[:host] = 'https://snack-store-api.herokuapp.com'
 end
