@@ -18,19 +18,19 @@ The project use the credentials module from Rails so we must rename the followin
 * **credentials.yml.enc.template** to **credentials.yml.enc**
 * **master.key.template** to **master.key**
 
-With this change we can now edit these vars, runnig the command:
+With this change we can now edit these vars, running the command:
 
 `EDITOR=nano rails credentials:edit`
 
-This file is a yml one, edit these vars and save the file. For example, the amazon s3 credentials are in this file, you can always change the bucket name and region in the **config/storage.yml**.
+This file is a yml one, edit these vars and save the file. For example, the amazon s3 credentials are in this file (you can change the bucket name and region in the **config/storage.yml**) as well as smtp credentials.
 
 
 ## Test users
 
-Cuenta de usuario
-usuario@prueba.com
+Cuenta de usuario  
+usuario@prueba.com  
 Test1234
 
-Cuenta de administrador
-admin@prueba.com
+Cuenta de administrador  
+admin@prueba.com  
 1234test
