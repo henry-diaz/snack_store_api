@@ -1,0 +1,683 @@
+{
+	"info": {
+		"_postman_id": "d63b3e97-0a66-485c-acfa-322d19579ea2",
+		"name": "Snacks Store",
+		"description": "Challenge app for Applaudo Studio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admins Namespace",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Required: Admin email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Required: Admin password",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "Required: Admin full name",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/v1/auth",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"v1",
+										"auth"
+									]
+								},
+								"description": "Register a user, in the register we do not login automatically, so you have to go to the Login action later"
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e8353cf-9d9e-4213-8c00-5d1e0dcb8c97",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ed5afc8c-b295-4246-8bb9-5c10758546f7",
+										"type": "text/javascript",
+										"exec": [
+											"postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(\"client\"));",
+											"postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+											"postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(\"uid\"));",
+											"postman.setEnvironmentVariable(\"expiry\", postman.getResponseHeader(\"expiry\"));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Register admin email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Register admin pass",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/v1/auth/sign_in",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"v1",
+										"auth",
+										"sign_in"
+									]
+								},
+								"description": "In a successful login, the body response returns the user object, and the header returns the token fields required to make the other calls (access-token, client, uid and expiry)"
+							},
+							"response": []
+						}
+					],
+					"description": "Request that concerns the Admin model",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "product[name]",
+											"value": "",
+											"description": "Required: name of the product, unique",
+											"type": "text"
+										},
+										{
+											"key": "product[description]",
+											"value": "",
+											"description": "Description of the product",
+											"type": "text"
+										},
+										{
+											"key": "product[stock]",
+											"value": "",
+											"description": "Required: stock of the product, numeric greater or equal than 0",
+											"type": "text"
+										},
+										{
+											"key": "product[price]",
+											"value": "",
+											"description": "Required: price of the product, numeric greater than 0",
+											"type": "text"
+										},
+										{
+											"key": "product[image]",
+											"value": "",
+											"description": "Image of the product ,saved to amazon s3 (See readme of project)",
+											"type": "file"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/v1/products",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"v1",
+										"products"
+									]
+								},
+								"description": "IMPORTANT: This action require headers of a authenticated Admin, this can be obtained (And saved by postman automatically) on the Admin > Login requests"
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "product[name]",
+											"value": "",
+											"description": "Required: name of the product, unique",
+											"type": "text"
+										},
+										{
+											"key": "product[description]",
+											"value": "",
+											"description": "Description of the product",
+											"type": "text"
+										},
+										{
+											"key": "product[stock]",
+											"value": "",
+											"description": "Required: stock of the product, numeric greater or equal than 0",
+											"type": "text"
+										},
+										{
+											"key": "product[price]",
+											"value": "",
+											"description": "Required: price of the product, numeric greater than 0",
+											"type": "text"
+										},
+										{
+											"key": "product[image]",
+											"value": "",
+											"description": "Image of the product ,saved to amazon s3 (See readme of project)",
+											"type": "file"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/v1/products/{{id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"v1",
+										"products",
+										"{{id}}"
+									]
+								},
+								"description": "IMPORTANT: Description of the create request applies here too and this request needs a id param, please set this manually."
+							},
+							"response": []
+						},
+						{
+							"name": "Destroy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{base_url}}/admins/v1/products/{{id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"v1",
+										"products",
+										"{{id}}"
+									]
+								},
+								"description": "IMPORTANT: Description of the create request applies here too and this request needs a id param, please set this manually."
+							},
+							"response": []
+						}
+					],
+					"description": "Requests that concerns the Product model",
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "Admin endpoints to manage products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c2f7181d-0c41-41ce-b1e9-c54fb8ec84f8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "451fca8a-2ede-4e93-bdf1-46f2779cb77d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users Namespace",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e8353cf-9d9e-4213-8c00-5d1e0dcb8c97",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ed5afc8c-b295-4246-8bb9-5c10758546f7",
+										"type": "text/javascript",
+										"exec": [
+											"postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(\"client\"));",
+											"postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+											"postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(\"uid\"));",
+											"postman.setEnvironmentVariable(\"expiry\", postman.getResponseHeader(\"expiry\"));"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Register user email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Register user pass",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/users/v1/auth/sign_in",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"v1",
+										"auth",
+										"sign_in"
+									]
+								},
+								"description": "In a successful login, the body response returns the user object, and the header returns the token fields required to make the other calls (access-token, client, uid and expiry)"
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "",
+											"description": "Required: User email",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"description": "Required: User password",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "Required: User full name",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "",
+											"description": "Required: User gender, values: m or f",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "",
+											"description": "User phone",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "",
+											"description": "User address",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/users/v1/auth",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"v1",
+										"auth"
+									]
+								},
+								"description": "Register a user, in the register we do not login automatically, so you have to go to the Login action later"
+							},
+							"response": []
+						}
+					],
+					"description": "User endpoints for login and register.",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "Like",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "purchase[product_id]",
+											"value": "",
+											"description": "Product ID",
+											"type": "text"
+										},
+										{
+											"key": "purchase[quantity]",
+											"value": "",
+											"description": "Quantity, must be a integer, greater than 0 but lower or equal to current stock",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/users/v1/products/{{id}}/like",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"v1",
+										"products",
+										"{{id}}",
+										"like"
+									]
+								},
+								"description": "IMPORTANT: This action require headers of a authenticated user, this can be obtained (And saved by postman automatically) on the User > Login requests. An authenticated user can like/dislike a product with this endpoint, you have to change the {{id}} params of the URL manually."
+							},
+							"response": []
+						},
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{base_url}}/users/v1/products?q=&sort_by_likes=&page=",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "",
+											"description": "Text to search in name and description fields of products"
+										},
+										{
+											"key": "sort_by_likes",
+											"value": "",
+											"description": "Can have any value, the important thing is that if this value is empty we sort by name by default"
+										},
+										{
+											"key": "page",
+											"value": "",
+											"description": "Current page requested, integer value greater than 0"
+										}
+									]
+								},
+								"description": "List of all available products. This action is available for unauthenticated users, so we don't need to send any headers. The request use 3 params, you can read the params description to know what to send in them. I combine the product list featured with pagination, search and sort here."
+							},
+							"response": []
+						}
+					],
+					"description": "List with pagination, sorting and search and buy a product endpoints.",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Purchase",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "access-token",
+										"value": "{{access-token}}",
+										"description": "Authenticated admin, access token header"
+									},
+									{
+										"key": "client",
+										"value": "{{client}}",
+										"description": "Authenticated admin, client header"
+									},
+									{
+										"key": "uid",
+										"value": "{{uid}}",
+										"description": "Authenticated admin, uid header"
+									},
+									{
+										"key": "expiry",
+										"value": "{{expiry}}",
+										"description": "Authenticated admin, expiry header"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "purchase[product_id]",
+											"value": "",
+											"description": "Product ID",
+											"type": "text"
+										},
+										{
+											"key": "purchase[quantity]",
+											"value": "",
+											"description": "Quantity, must be a integer, greater than 0 but lower or equal to current stock",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/users/v1/purchases",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"v1",
+										"purchases"
+									]
+								},
+								"description": "IMPORTANT: This action require headers of a authenticated User, this can be obtained (And saved by postman automatically) on the User > Login requests"
+							},
+							"response": []
+						}
+					],
+					"description": "Authenticated user buy a product",
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "Actions that only a login user can make, like buy or like a product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e23998ac-6bea-4fcf-855a-c98fcdefcd75",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a55fd9b-68fd-43e7-aee8-d0086bedb8dc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
