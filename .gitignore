@@ -25,3 +25,5 @@
 # Custom ignore files
 /config/database.yml
 /config/credentials.yml.enc
+# We are gonna run a react client in public
+/public

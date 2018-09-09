@@ -54,6 +54,7 @@ Rails.application.configure do
 
   # Need this default url option cause we're gonna serve image_url method from
   # Product model directly
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+  # We're gonna change to port 3001, to let react run on 3000
+  config.action_mailer.default_url_options = { host: 'localhost:3001' }
+  Rails.application.routes.default_url_options[:host] = 'localhost:3001'
 end
